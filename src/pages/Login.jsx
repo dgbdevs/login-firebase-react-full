@@ -20,8 +20,10 @@ const Login = () => {
     const googleLogin = async () => {
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider)
-            .then(() => navigate('/'))
+            .then(() => {
+                navigate('/')})
             .catch((error) => console.error(error))
+        
     }
 
     //LOGIN
@@ -92,7 +94,7 @@ const Login = () => {
 
                     <button className='btnGoogle' onClick={() => googleLogin()}>
                         <FcGoogle size='25' />
-                        Login With Google
+                        Iniciar sesion con Google
                     </button>
                 </div>
             </div>

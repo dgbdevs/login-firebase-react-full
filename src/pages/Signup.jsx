@@ -24,8 +24,7 @@ const Signup = () => {
         e.preventDefault()
 
         await createUserWithEmailAndPassword(auth, user.email, user.password)
-            .then((currentUser) => {                
-                createUser(currentUser.user)
+            .then(() => {   
                 navigate('/')
                 setUser({
                     email: '',

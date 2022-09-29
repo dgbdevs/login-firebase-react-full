@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { login, logout } from '../features/user/userSlice'
 import { Navigate, useNavigate } from 'react-router-dom';
 import Avatar from '../components/Avatar';
+import { createUser } from '../functions/handleUser';
+import { useEffect } from 'react';
 
 const Home = () => {
     const user = useSelector((state) => state.user.value)
@@ -22,6 +24,8 @@ const Home = () => {
             .catch((err) => console.log(err))
     }
     console.log(user)
+
+    useEffect(()=>{createUser(user)},[])
 
     return (
 
