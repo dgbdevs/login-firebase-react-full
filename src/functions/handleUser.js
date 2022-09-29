@@ -1,47 +1,41 @@
-import {firestore} from '../firebaseConfig'
-import {doc,collection,addDoc,setDoc,getDoc, updateDoc} from 'firebase/firestore'
-import { useSelector, useDispatch } from 'react-redux'
-import {login,logout} from '../features/user/userSlice'
+import { firestore } from '../firebaseConfig'
+import { doc, collection, addDoc, setDoc, getDoc, updateDoc } from 'firebase/firestore'
 
 
-export const createUser = (currentUser) => {
+export function createUser (user) {
 
-    const user = {
-        uid:currentUser.uid,
-        fullname: currentUser.displayName,
-        avatar: currentUser.photoURL,
-        email:currentUser.email,
-        emailVerified:currentUser.emailVerified,
-    }
-    const addUser = async () =>{
-         const docRef = doc(firestore,'users',currentUser.uid)
-        await setDoc(docRef,user)
-        .then(()=>{console.log('usuario cargado')})
-        .catch((err)=>console.log(err))     
+    const load = async () => {
+        const docRef = doc(firestore, 'users', user.uid)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+            console.log('usuario ya existente')
+        } else {
+            await setDoc(doc(firestore,'users',user.uid),Object.fromEntries(Object.entries(user).filter(value => value[1])))
+            console.log('usuario creado')
+        }
     }
 
-    return(
-       addUser()
-        )
+    return(load())
+    
 }
 
 
 
-export const loadUser = (uid) => {  
-    
-    const load = async () =>{       
-        const docRef = doc(firestore,'users',uid)
+export const loadUser = (uid) => {
+
+    const load = async () => {
+        const docRef = doc(firestore, 'users', uid)
         const docSnap = await getDoc(docRef)
 
         if (docSnap.exists()) {
-            return(docSnap.data)
-          } else {
+            return (docSnap.data)
+        } else {
             return null
-          }
-          
+        }
+
     }
 
-    return(
-       load()
-        )
+    return (
+        load()
+    )
 }
