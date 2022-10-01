@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Form, Input, Label } from 'reactstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import { signInWithEmailAndPassword, GoogleAuthProvider, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth'
+import { signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -49,6 +49,13 @@ const Login = () => {
         showPass()
     }, [passView])
 
+    useEffect (()=>{
+        onAuthStateChanged(auth, currentUser => {
+            if (currentUser) {
+               navigate('/')}
+        })
+
+    },[])
 
 
     return (
@@ -86,7 +93,7 @@ const Login = () => {
                         <Button color='primary' type='submit' block >Iniciar Sesión</Button>
 
                         <div className='form-login-footer'>
-                            <Link to={'/resetpwd'}>Forgot password?</Link>
+                            <Link to={'/resetpwd'}>Olvidaste tu contraseña?</Link>
                             <Link to={'/signup'}>Registrate</Link>
                         </div>
                     </Form>
@@ -94,7 +101,7 @@ const Login = () => {
 
                     <button className='btnGoogle' onClick={() => googleLogin()}>
                         <FcGoogle size='25' />
-                        Iniciar sesion con Google
+                      <div>Login con Google</div>
                     </button>
                 </div>
             </div>

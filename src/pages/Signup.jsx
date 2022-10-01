@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Form, Label, Input } from 'reactstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../firebaseConfig'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Errormsg from '../components/Errormsg'
 import { createUser } from '../functions/handleUser'
@@ -68,6 +68,14 @@ const Signup = () => {
     }
 
     useEffect(() => { passCheck('init') }, [user])
+
+    useEffect (()=>{
+        onAuthStateChanged(auth, currentUser => {
+            if (currentUser) {
+               navigate('/')}
+        })
+
+    },[])
 
 
     return (

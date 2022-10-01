@@ -62,7 +62,7 @@ const Resetpwd = () => {
                         </div>
 
                         <br></br>
-                        <Button color='primary' type='submit' block >Resetear password</Button>
+                        <Button color='primary' type='submit' block >Resetear contraseña</Button>
 
                         <div className='form-login-footer'>
                             <Link to={'/login'}>Iniciar sesión</Link>

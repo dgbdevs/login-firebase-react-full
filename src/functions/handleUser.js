@@ -28,7 +28,7 @@ export const loadUser = (uid) => {
         const docSnap = await getDoc(docRef)
 
         if (docSnap.exists()) {
-            return (docSnap.data)
+            return docSnap.data()
         } else {
             return null
         }

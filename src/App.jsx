@@ -12,6 +12,7 @@ import './index.css'
 import Home from './pages/Home';
 import Error404 from './pages/Error404';
 import Resetpwd from './pages/resetpwd';
+import Error405 from './pages/Error405';
 
 
 

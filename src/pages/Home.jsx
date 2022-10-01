@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { login, logout } from '../features/user/userSlice'
 import { Navigate, useNavigate } from 'react-router-dom';
 import Avatar from '../components/Avatar';
-import { createUser } from '../functions/handleUser';
+import { createUser, loadUser } from '../functions/handleUser';
 import { useEffect } from 'react';
 
 const Home = () => {
@@ -23,9 +23,11 @@ const Home = () => {
             })
             .catch((err) => console.log(err))
     }
-    console.log(user)
 
-    useEffect(()=>{createUser(user)},[])
+    useEffect(()=>{
+        createUser(user)
+        loadUser(user.uid)
+    },[])
 
     return (
 
@@ -42,7 +44,7 @@ const Home = () => {
                 </NavbarBrand>
                 <div>
                     <div className='username'>
-                        Bienvenido {user.fullname ?
+                        Bienvenido {user ?
                             <>{user.fullname}</>
                             :
                             <>{user.email}</>
